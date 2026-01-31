@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:52:01 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:52:15 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static size_t	count_tokens(const char *s)
 		while (s[i] && is_space(s[i]))
 			i++;
 		if (!s[i])
-		break;
+			break;
 		count++;
 		dummy = 0;
 		consume_token(s, &i, NULL, &dummy);
