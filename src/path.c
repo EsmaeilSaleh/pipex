@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:50:13 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:50:18 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_path_env(char **envp)
 		i++;
 	}
 	return ("/usr/local/bin:/usr/bin:/bin"
-			":/usr/sbin:/sbin");
+		":/usr/sbin:/sbin");
 }
 
 static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
