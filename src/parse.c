@@ -12,7 +12,11 @@
 
 #include "pipex.h"
 
-static const char *g_default_path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+static const char *default_path(void)
+{
+	return ("/usr/local/bin:/usr/bin:/bin"
+			":/usr/sbin:/sbin");
+}
 
 static char *join_path(char *dir, char *cmd)
 {
@@ -54,7 +58,7 @@ static char *extract_path_env(char **envp)
 	size_t i;
 
 	if (!envp)
-		return ((char *)g_default_path);
+		return ((char *)default_path());
 	i = 0;
 	while (envp[i])
 	{
@@ -62,7 +66,7 @@ static char *extract_path_env(char **envp)
 			return (envp[i] + 5);
 		i++;
 	}
-	return ((char *)g_default_path);
+	return ((char *)default_path());
 }
 
 char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
