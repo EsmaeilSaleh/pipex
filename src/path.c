@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:02:41 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:02:57 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
 	char	**paths;
 	char	*full;
 	size_t	i;
-	const char		*default_path;
+	const char			*default_path;
 
 	default_path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 	if (!cmd || !*cmd)
