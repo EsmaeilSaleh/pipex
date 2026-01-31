@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:36 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:27:17 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:31:34 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ void int	print_usage(void)
 {
 	ft_putendl_fd("Usage: ./pipex infile \"cmd1\" \"cmd2\" outfile",
 		STDERR_FILENO);
+	return (1);
+}
+
+int wait_children(pid_t pid1, pid_t pid2)
+{
+	int	status2;
+
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, &status2, 0);
+	if (WIFEXITED(status2))
+		return (WEXITSTATUS(status2));
 	return (1);
 }
 
