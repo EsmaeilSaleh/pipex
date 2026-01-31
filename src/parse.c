@@ -6,20 +6,20 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:48:48 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:49:39 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static int is_space(char c)
+static int	is_space(char c)
 {
 	return (c == ' ' || c == '\t');
 }
 
-static void consume_token(const char *s, size_t *i, char *buf, size_t *j)
+static void	consume_token(const char *s, size_t *i, char *buf, size_t *j)
 {
-	char q;
+	char	q;
 
 	q = 0;
 	while (s[*i] && (q || !is_space(s[*i])))
@@ -46,11 +46,11 @@ static void consume_token(const char *s, size_t *i, char *buf, size_t *j)
 	}
 }
 
-static size_t count_tokens(const char *s)
+static size_t	count_tokens(const char *s)
 {
-	size_t i;
-	size_t count;
-	size_t dummy;
+	size_t	i;
+	size_t	count;
+	size_t	dummy;
 
 	i = 0;
 	count = 0;
