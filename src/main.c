@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:36 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:33:34 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:38:11 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	main(int argc, char **argv, char **envp)
 	int		pipefd[2];
 	pid_t	pid1;
 	pid_t	pid2;
-	int		status2;
 
 	if (argc != 5)
 		return (print_usage());
