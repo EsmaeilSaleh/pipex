@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:36 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:25:41 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:26:16 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	child_out(char **argv, char **envp, int pipefd[2])
 
 void	int print_usage(void)
 {
-		ft_putendl_fd("Usage: ./pipex infile \"cmd1\" \"cmd2\" outfile",
-			STDERR_FILENO);
-		return (1);
+	ft_putendl_fd("Usage: ./pipex infile \"cmd1\" \"cmd2\" outfile",
+	STDERR_FILENO);
+	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
