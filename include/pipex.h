@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:08:28 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:08:30 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-#include "../../libft/libft.h"
+# include "../../libft/libft.h"
 
 void error_exit(const char *msg, int code);
 void free_split(char **arr);
