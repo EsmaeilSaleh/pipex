@@ -6,13 +6,13 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:04:16 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:54:03 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void cmd_not_found(char *cmd, char **args, int perm_denied)
+static void	cmd_not_found(char *cmd, char **args, int perm_denied)
 {
 	ft_putstr_fd("pipex: ", STDERR_FILENO);
 	if (perm_denied)
@@ -28,7 +28,7 @@ static void cmd_not_found(char *cmd, char **args, int perm_denied)
 	exit(127);
 }
 
-static void execve_fail(char *cmd, char *path, char **args)
+static void	execve_fail(char *cmd, char *path, char **args)
 {
 	ft_putstr_fd("pipex: ", STDERR_FILENO);
 	perror(cmd);
@@ -39,11 +39,11 @@ static void execve_fail(char *cmd, char *path, char **args)
 	exit(127);
 }
 
-void exec_cmd(char *cmd_str, char **envp)
+void	exec_cmd(char *cmd_str, char **envp)
 {
-	char **args;
-	char *path;
-	int perm_denied;
+	int	perm_denied;
+	char	**args;
+	char	*path;
 
 	args = split_cmd(cmd_str);
 	if (!args || !args[0])
@@ -59,7 +59,7 @@ void exec_cmd(char *cmd_str, char **envp)
 	execve_fail(args[0], path, args);
 }
 
-void error_exit(const char *msg, int code)
+void	error_exit(const char *msg, int code)
 {
 	if (msg)
 	{
@@ -69,9 +69,9 @@ void error_exit(const char *msg, int code)
 	exit(code);
 }
 
-void free_split(char **arr)
+void	free_split(char **arr)
 {
-	size_t i;
+	size_t	i;
 
 	if (!arr)
 		return;
