@@ -12,10 +12,44 @@
 
 #include "pipex.h"
 
-static char	*join_path(char *dir, char *cmd)
+static const char *default_path(void)
 {
-	char	*tmp;
-	char	*full;
+	return ("/usr/local/bin:/usr/bin:/bin"
+			":/usr/sbin:/sbin");
+}
+
+static char *get_path_env(char **envp)
+{
+	size_t i;
+
+	if (!envp)
+		return ((char *)default_path());
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			return (envp[i] + 5);
+		i++;
+	}
+	return ((char *)default_path());
+}
+
+static char *handle_slash_cmd(char *cmd, int *perm_denied)
+{
+	if (access(cmd, F_OK) == 0)
+	{
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		if (perm_denied)
+			*perm_denied = 1;
+	}
+	return (NULL);
+}
+
+static char *join_path(char *dir, char *cmd)
+{
+	char *tmp;
+	char *full;
 
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
@@ -25,10 +59,10 @@ static char	*join_path(char *dir, char *cmd)
 	return (full);
 }
 
-static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
+static char *find_in_path(char *cmd, char **paths, int *perm_denied)
 {
-	size_t	i;
-	char	*full;
+	size_t i;
+	char *full;
 
 	i = 0;
 	while (paths && paths[i])
@@ -46,43 +80,17 @@ static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 	return (NULL);
 }
 
-char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
+char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
 {
-	char	*path_env;
-	char	**paths;
-	char	*full;
-	char	*default_path;
-	size_t	i;
+	char *path_env;
+	char **paths;
+	char *full;
 
-	default_path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 	if (!cmd || !*cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, F_OK) == 0)
-		{
-			if (access(cmd, X_OK) == 0)
-				return (ft_strdup(cmd));
-			if (perm_denied)
-				*perm_denied = 1;
-		}
-		return (NULL);
-	}
-	if (!envp)
-		path_env = (char *)default_path;
-	i = 0;
-	path_env = NULL;
-	while (envp && envp[i])
-	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-		{
-			path_env = envp[i] + 5;
-			break ;
-		}
-		i++;
-	}
-	if (!path_env)
-		path_env = (char *)default_path;
+		return (handle_slash_cmd(cmd, perm_denied));
+	path_env = get_path_env(envp);
 	paths = ft_split(path_env, ':');
 	full = find_in_path(cmd, paths, perm_denied);
 	free_split(paths);
