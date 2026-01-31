@@ -6,21 +6,21 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:12:14 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:45:28 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static const char *default_path(void)
+static const char	*default_path(void)
 {
 	return ("/usr/local/bin:/usr/bin:/bin"
 			":/usr/sbin:/sbin");
 }
 
-static char *get_path_env(char **envp)
+static char	*get_path_env(char **envp)
 {
-	size_t i;
+	size_t	i;
 
 	if (!envp)
 		return ((char *)default_path());
@@ -34,7 +34,7 @@ static char *get_path_env(char **envp)
 	return ((char *)default_path());
 }
 
-static char *handle_slash_cmd(char *cmd, int *perm_denied)
+static char	*handle_slash_cmd(char *cmd, int *perm_denied)
 {
 	if (access(cmd, F_OK) == 0)
 	{
@@ -46,10 +46,10 @@ static char *handle_slash_cmd(char *cmd, int *perm_denied)
 	return (NULL);
 }
 
-static char *join_path(char *dir, char *cmd)
+static char	*join_path(char *dir, char *cmd)
 {
-	char *tmp;
-	char *full;
+	char	*tmp;
+	char	*full;
 
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
@@ -59,10 +59,10 @@ static char *join_path(char *dir, char *cmd)
 	return (full);
 }
 
-static char *find_in_path(char *cmd, char **paths, int *perm_denied)
+static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 {
-	size_t i;
-	char *full;
+	size_t	i;
+	char	*full;
 
 	i = 0;
 	while (paths && paths[i])
@@ -80,11 +80,11 @@ static char *find_in_path(char *cmd, char **paths, int *perm_denied)
 	return (NULL);
 }
 
-char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
+char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
 {
-	char *path_env;
-	char **paths;
-	char *full;
+	char	*path_env;
+	char	**paths;
+	char	*full;
 
 	if (!cmd || !*cmd)
 		return (NULL);
