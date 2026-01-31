@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:39:37 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:39:52 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static const char	*default_path(void)
 {
 	return ("/usr/local/bin:/usr/bin:/bin"
-			":/usr/sbin:/sbin");
+		":/usr/sbin:/sbin");
 }
 
 static char *join_path(char *dir, char *cmd)
