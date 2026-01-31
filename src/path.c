@@ -6,15 +6,15 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:46:16 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:50:02 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static char *get_path_env(char **envp)
+static char	*get_path_env(char **envp)
 {
-	size_t i;
+	size_t	i;
 
 	if (!envp)
 		return ("/usr/local/bin:/usr/bin:/bin"
@@ -30,11 +30,11 @@ static char *get_path_env(char **envp)
 			":/usr/sbin:/sbin");
 }
 
-static char *find_in_path(char *cmd, char **paths, int *perm_denied)
+static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 {
-	size_t i;
-	char *tmp;
-	char *full;
+	size_t	i;
+	char	*tmp;
+	char	*full;
 
 	i = 0;
 	while (paths && paths[i])
@@ -57,11 +57,11 @@ static char *find_in_path(char *cmd, char **paths, int *perm_denied)
 	return (NULL);
 }
 
-char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
+char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
 {
-	char *path_env;
-	char **paths;
-	char *full;
+	char	*path_env;
+	char	**paths;
+	char	*full;
 
 	if (!cmd || !*cmd)
 		return (NULL);
