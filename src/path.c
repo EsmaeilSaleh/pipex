@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:50:02 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:50:13 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*get_path_env(char **envp)
 
 	if (!envp)
 		return ("/usr/local/bin:/usr/bin:/bin"
-				":/usr/sbin:/sbin");
+			":/usr/sbin:/sbin");
 	i = 0;
 	while (envp[i])
 	{
