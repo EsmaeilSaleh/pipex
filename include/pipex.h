@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:08:30 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:08:54 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 
 # include "../../libft/libft.h"
 
-void error_exit(const char *msg, int code);
-void free_split(char **arr);
-char **split_cmd(const char *s);
-char *get_cmd_path(char *cmd, char **envp, int *perm_denied);
-void exec_cmd(char *cmd_str, char **envp);
+void	error_exit(const char *msg, int code);
+void	free_split(char **arr);
+char	**split_cmd(const char *s);
+char	*get_cmd_path(char *cmd, char **envp, int *perm_denied);
+void	exec_cmd(char *cmd_str, char **envp);
 
 #endif
