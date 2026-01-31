@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:36 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:31:34 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:32:28 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,5 @@ int	main(int argc, char **argv, char **envp)
 		child_out(argv, envp, pipefd);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, &status2, 0);
-	if (WIFEXITED(status2))
-		return (WEXITSTATUS(status2));
-	return (1);
+	return (wait_children(pid1, pid2));
 }
