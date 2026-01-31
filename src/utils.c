@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:56:00 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:56:17 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	execve_fail(char *cmd, char *path, char **args)
 void	exec_cmd(char *cmd_str, char **envp)
 {
 	int	perm_denied;
-	char	*path;
+	char		*path;
 	char	**args;
 
 	args = split_cmd(cmd_str);
