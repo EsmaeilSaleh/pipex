@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:52:53 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:53:27 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static size_t	count_tokens(const char *s)
 
 static char	*build_token(const char *s, size_t *i)
 {
-	char *buf;
-	size_t j;
+	char	*buf;
+	size_t	j;
 
 	buf = (char *)malloc(ft_strlen(s) + 1);
 	if (!buf)
