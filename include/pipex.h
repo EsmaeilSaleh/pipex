@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/31 15:03:13 by esaleh            #+#    #+#             */
+/*   Updated: 2026/01/31 15:03:15 by esaleh           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 #define PIPEX_H
 
@@ -10,7 +22,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include "libft.h"
+#include "../../libft/libft.h"
 
 void error_exit(const char *msg, int code);
 void free_split(char **arr);
