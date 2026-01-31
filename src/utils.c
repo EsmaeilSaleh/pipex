@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:54:20 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:54:35 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	free_split(char **arr)
 	size_t	i;
 
 	if (!arr)
-		return;
+		return ;
 	i = 0;
 	while (arr[i])
 	{
