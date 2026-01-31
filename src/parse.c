@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:54:36 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:55:03 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static char	*build_token(const char *s, size_t *i)
 char	**split_cmd(const char *s)
 {
 	char	**out;
-	size_t		i;
-	size_t		j;
-	size_t		count;
+	size_t	i;
+	size_t	j;
+	size_t	count;
 
 	count = count_tokens(s);
 	out = (char **)ft_calloc(count + 1, sizeof(char *));
