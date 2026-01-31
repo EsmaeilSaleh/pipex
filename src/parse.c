@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:39:52 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:40:16 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static const char	*default_path(void)
 		":/usr/sbin:/sbin");
 }
 
-static char *join_path(char *dir, char *cmd)
+static char	*join_path(char *dir, char *cmd)
 {
-	char *tmp;
-	char *full;
+	char	*tmp;
+	char	*full;
 
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
@@ -31,7 +31,7 @@ static char *join_path(char *dir, char *cmd)
 	return (full);
 }
 
-static char *find_in_path(char *cmd, char **paths, int *perm_denied)
+static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 {
 	size_t i;
 	char *full;
