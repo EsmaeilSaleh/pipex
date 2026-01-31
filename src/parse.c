@@ -12,100 +12,80 @@
 
 #include "pipex.h"
 
-static int	is_space(char c)
+static const char *g_default_path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+
+static char *join_path(char *dir, char *cmd)
 {
-	return (c == ' ' || c == '\t');
+	char *tmp;
+	char *full;
+
+	tmp = ft_strjoin(dir, "/");
+	if (!tmp)
+		return (NULL);
+	full = ft_strjoin(tmp, cmd);
+	free(tmp);
+	return (full);
 }
 
-static void	consume_token(const char *s, size_t *i, char *buf, size_t *j)
+static char *find_in_path(char *cmd, char **paths, int *perm_denied)
 {
-	char	q;
-
-	q = 0;
-	while (s[*i] && (q || !is_space(s[*i])))
-	{
-		if (s[*i] == '\\' && s[*i + 1] && q != '\'')
-		{
-			if (buf)
-				buf[(*j)++] = s[*i + 1];
-			*i += 2;
-		}
-		else if ((s[*i] == '\'' || s[*i] == '"') && q == 0)
-			q = s[(*i)++];
-		else if (s[*i] == q)
-		{
-			q = 0;
-			(*i)++;
-		}
-		else
-		{
-			if (buf)
-				buf[(*j)++] = s[*i];
-			(*i)++;
-		}
-	}
-}
-
-static size_t	count_tokens(const char *s)
-{
-	size_t	i;
-	size_t	count;
-	size_t	dummy;
+	size_t i;
+	char *full;
 
 	i = 0;
-	count = 0;
-	while (s && s[i])
+	while (paths && paths[i])
 	{
-		while (s[i] && is_space(s[i]))
-			i++;
-		if (!s[i])
-			break ;
-		count++;
-		dummy = 0;
-		consume_token(s, &i, NULL, &dummy);
-	}
-	return (count);
-}
-
-static char	*build_token(const char *s, size_t *i)
-{
-	char	*buf;
-	size_t	j;
-
-	buf = (char *)malloc(ft_strlen(s) + 1);
-	if (!buf)
-		return (NULL);
-	j = 0;
-	while (s[*i] && is_space(s[*i]))
-		(*i)++;
-	consume_token(s, i, buf, &j);
-	buf[j] = '\0';
-	return (buf);
-}
-
-char	**split_cmd(const char *s)
-{
-	char	**out;
-	size_t	i;
-	size_t	j;
-	size_t	count;
-
-	count = count_tokens(s);
-	out = (char **)ft_calloc(count + 1, sizeof(char *));
-	if (!out)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (j < count)
-	{
-		out[j] = build_token(s, &i);
-		if (!out[j])
+		full = join_path(paths[i], cmd);
+		if (full && access(full, F_OK) == 0)
 		{
-			free_split(out);
+			if (access(full, X_OK) == 0)
+				return (full);
+			if (perm_denied)
+				*perm_denied = 1;
+		}
+		free(full);
+		i++;
+	}
+	return (NULL);
+}
+
+static char *extract_path_env(char **envp)
+{
+	size_t i;
+
+	if (!envp)
+		return ((char *)g_default_path);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
+			return (envp[i] + 5);
+		i++;
+	}
+	return ((char *)g_default_path);
+}
+
+char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
+{
+	char *path_env;
+	char **paths;
+	char *full;
+
+	if (!cmd || !*cmd)
+		return (NULL);
+	if (ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, F_OK) != 0)
 			return (NULL);
-		}
-		j++;
+		if (access(cmd, X_OK) == 0)
+			return (ft_strdup(cmd));
+		if (perm_denied)
+			*perm_denied = 1;
+		return (NULL);
 	}
-	out[j] = NULL;
-	return (out);
+	path_env = extract_path_env(envp);
+	paths = ft_split(path_env, ':');
+	full = find_in_path(cmd, paths, perm_denied);
+	free_split(paths);
+	return (full);
 }
