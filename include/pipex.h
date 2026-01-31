@@ -6,12 +6,12 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:13 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:03:15 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:07:49 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
-#define PIPEX_H
+# define PIPEX_H
 
 #include <errno.h>
 #include <fcntl.h>
