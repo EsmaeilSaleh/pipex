@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:36 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 15:32:28 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 15:32:47 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void int	print_usage(void)
 	return (1);
 }
 
-int wait_children(pid_t pid1, pid_t pid2)
+int	]wait_children(pid_t pid1, pid_t pid2)
 {
 	int	status2;
 
