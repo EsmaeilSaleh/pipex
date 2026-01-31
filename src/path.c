@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:04:03 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:01:47 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:01:57 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 
 char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
 {
-	size_t	i;
 	char	*path_env;
 	char	**paths;
 	char	*full;
+	size_t	i;
 	const char	*default_path;
 
 	default_path = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
