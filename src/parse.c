@@ -6,7 +6,7 @@
 /*   By: esaleh <esaleh@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 15:03:55 by esaleh            #+#    #+#             */
-/*   Updated: 2026/01/31 16:40:31 by esaleh           ###   ########.fr       */
+/*   Updated: 2026/01/31 16:41:12 by esaleh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 	return (NULL);
 }
 
-static char *extract_path_env(char **envp)
+static char	*extract_path_env(char **envp)
 {
-	size_t i;
+	size_t	i;
 
 	if (!envp)
 		return ((char *)default_path());
@@ -69,11 +69,11 @@ static char *extract_path_env(char **envp)
 	return ((char *)default_path());
 }
 
-char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
+char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
 {
-	char *path_env;
-	char **paths;
-	char *full;
+	char	*path_env;
+	char	**paths;
+	char	*full;
 
 	if (!cmd || !*cmd)
 		return (NULL);
