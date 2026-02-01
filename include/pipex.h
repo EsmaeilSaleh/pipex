@@ -26,6 +26,10 @@
 
 void	error_exit(const char *msg, int code);
 void	free_split(char **arr);
+size_t	skip_spaces(const char *s, size_t i);
+size_t	token_end(const char *s, size_t i);
+size_t	count_tokens(const char *s);
+int		build_tokens(char **out, const char *s, size_t count);
 char	**split_cmd(const char *s);
 char	*get_cmd_path(char *cmd, char **envp, int *perm_denied);
 void	exec_cmd(char *cmd_str, char **envp);
