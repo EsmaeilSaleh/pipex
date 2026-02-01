@@ -2,9 +2,9 @@ NAME := pipex
 
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
-INCLUDES := -Iinclude -I../libft
+INCLUDES := -Iinclude -Ilibft
 
-LIBFT_DIR := ../libft
+LIBFT_DIR := ./libft
 LIBFT := $(LIBFT_DIR)/libft.a
 
 SRCS := \
