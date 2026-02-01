@@ -12,6 +12,7 @@ SRCS := \
 	src/path.c \
 	src/parse.c \
 	src/parse_helpers.c \
+	src/split_cmd_build.c \
 	src/split_cmd_core.c \
 	src/utils.c
 

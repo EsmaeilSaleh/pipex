@@ -34,4 +34,11 @@ char	**split_cmd(const char *s);
 char	*get_cmd_path(char *cmd, char **envp, int *perm_denied);
 void	exec_cmd(char *cmd_str, char **envp);
 
+typedef struct s_escape
+{
+	const char	*s;
+	size_t		end;
+	char		quote;
+}	t_escape;
+
 #endif

@@ -18,6 +18,17 @@ static int	is_space(int c)
 		|| c == '\r' || c == '\v' || c == '\f');
 }
 
+static int	handle_escape(const char *s, size_t *i, char quote)
+{
+	if (s[*i] != '\\' || quote == '\'')
+		return (0);
+	if (s[*i + 1])
+		*i += 2;
+	else
+		(*i)++;
+	return (1);
+}
+
 size_t	skip_spaces(const char *s, size_t i)
 {
 	while (s[i] && is_space(s[i]))
@@ -34,6 +45,8 @@ size_t	token_end(const char *s, size_t i)
 	{
 		if (!quote && is_space(s[i]))
 			break ;
+		if (handle_escape(s, &i, quote))
+			continue ;
 		if (!quote && (s[i] == '\'' || s[i] == '"'))
 		{
 			quote = s[i++];
