@@ -12,13 +12,13 @@
 
 #include "pipex.h"
 
-static char	*get_path_env(char **envp)
+static char *get_path_env(char **envp)
 {
-	size_t	i;
+	size_t i;
 
 	if (!envp)
 		return ("/usr/local/bin:/usr/bin:/bin"
-			":/usr/sbin:/sbin");
+				":/usr/sbin:/sbin");
 	i = 0;
 	while (envp[i])
 	{
@@ -27,14 +27,14 @@ static char	*get_path_env(char **envp)
 		i++;
 	}
 	return ("/usr/local/bin:/usr/bin:/bin"
-		":/usr/sbin:/sbin");
+			":/usr/sbin:/sbin");
 }
 
-static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
+static char *find_in_path(char *cmd, char **paths, int *perm_denied)
 {
-	size_t	i;
-	char	*tmp;
-	char	*full;
+	size_t i;
+	char *tmp;
+	char *full;
 
 	i = 0;
 	while (paths && paths[i])
@@ -57,25 +57,27 @@ static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
 	return (NULL);
 }
 
-char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
+static char *slash_cmd(char *cmd, int *perm_denied)
 {
-	char	*path_env;
-	char	**paths;
-	char	*full;
+	if (access(cmd, F_OK) != 0)
+		return (NULL);
+	if (access(cmd, X_OK) == 0)
+		return (ft_strdup(cmd));
+	if (perm_denied)
+		*perm_denied = 1;
+	return (NULL);
+}
+
+char *get_cmd_path(char *cmd, char **envp, int *perm_denied)
+{
+	char *path_env;
+	char **paths;
+	char *full;
 
 	if (!cmd || !*cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, F_OK) == 0)
-		{
-			if (access(cmd, X_OK) == 0)
-				return (ft_strdup(cmd));
-			if (perm_denied)
-				*perm_denied = 1;
-		}
-		return (NULL);
-	}
+		return (slash_cmd(cmd, perm_denied));
 	path_env = get_path_env(envp);
 	paths = ft_split(path_env, ':');
 	full = find_in_path(cmd, paths, perm_denied);

@@ -12,84 +12,139 @@
 
 #include "pipex.h"
 
-static const char	*default_path(void)
+static int	is_space(int c)
 {
-	return ("/usr/local/bin:/usr/bin:/bin"
-		":/usr/sbin:/sbin");
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\r' || c == '\v' || c == '\f');
 }
 
-static char	*join_path(char *dir, char *cmd)
+static size_t	count_tokens(const char *s)
 {
-	char	*tmp;
-	char	*full;
-
-	tmp = ft_strjoin(dir, "/");
-	if (!tmp)
-		return (NULL);
-	full = ft_strjoin(tmp, cmd);
-	free(tmp);
-	return (full);
-}
-
-static char	*find_in_path(char *cmd, char **paths, int *perm_denied)
-{
-	char	*full;
 	size_t	i;
+	size_t	count;
+	char	quote;
 
 	i = 0;
-	while (paths && paths[i])
+	count = 0;
+	while (s && s[i])
 	{
-		full = join_path(paths[i], cmd);
-		if (full && access(full, F_OK) == 0)
+		while (s[i] && is_space(s[i]))
+			i++;
+		if (!s[i])
+			break ;
+		count++;
+		quote = 0;
+		while (s[i])
 		{
-			if (access(full, X_OK) == 0)
-				return (full);
-			if (perm_denied)
-				*perm_denied = 1;
+			if (!quote && is_space(s[i]))
+				break ;
+			if (!quote && (s[i] == '\'' || s[i] == '"'))
+			{
+				quote = s[i++];
+				continue ;
+			}
+			if (quote && s[i] == quote)
+			{
+				quote = 0;
+				i++;
+				continue ;
+			}
+			i++;
 		}
-		free(full);
-		i++;
 	}
-	return (NULL);
+	return (count);
 }
 
-static char	*extract_path_env(char **envp)
+static char	*dup_token(const char *s, size_t *i)
 {
+	size_t	j;
+	size_t	k;
+	size_t	len;
+	char	quote;
+	char	*tok;
+
+	j = *i;
+	while (s[j] && is_space(s[j]))
+		j++;
+	if (!s[j])
+	{
+		*i = j;
+		return (NULL);
+	}
+	k = j;
+	len = 0;
+	quote = 0;
+	while (s[k])
+	{
+		if (!quote && is_space(s[k]))
+			break ;
+		if (!quote && (s[k] == '\'' || s[k] == '"'))
+		{
+			quote = s[k++];
+			continue ;
+		}
+		if (quote && s[k] == quote)
+		{
+			quote = 0;
+			k++;
+			continue ;
+		}
+		len++;
+		k++;
+	}
+	tok = ft_calloc(len + 1, sizeof(char));
+	if (!tok)
+	{
+		*i = k;
+		return (NULL);
+	}
+	len = 0;
+	quote = 0;
+	while (j < k)
+	{
+		if (!quote && (s[j] == '\'' || s[j] == '"'))
+		{
+			quote = s[j++];
+			continue ;
+		}
+		if (quote && s[j] == quote)
+		{
+			quote = 0;
+			j++;
+			continue ;
+		}
+		tok[len++] = s[j++];
+	}
+	tok[len] = '\0';
+	*i = k;
+	return (tok);
+}
+
+char	**split_cmd(const char *s)
+{
+	char	**out;
+	size_t	count;
 	size_t	i;
+	size_t	j;
 
-	if (!envp)
-		return ((char *)default_path());
+	if (!s)
+		return (NULL);
+	count = count_tokens(s);
+	out = ft_calloc(count + 1, sizeof(char *));
+	if (!out)
+		return (NULL);
 	i = 0;
-	while (envp[i])
+	j = 0;
+	while (j < count)
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
-			return (envp[i] + 5);
-		i++;
-	}
-	return ((char *)default_path());
-}
-
-char	*get_cmd_path(char *cmd, char **envp, int *perm_denied)
-{
-	char	*path_env;
-	char	**paths;
-	char	*full;
-
-	if (!cmd || !*cmd)
-		return (NULL);
-	if (ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, F_OK) != 0)
+		out[j] = dup_token(s, &i);
+		if (!out[j])
+		{
+			free_split(out);
 			return (NULL);
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		if (perm_denied)
-			*perm_denied = 1;
-		return (NULL);
+		}
+		j++;
 	}
-	path_env = extract_path_env(envp);
-	paths = ft_split(path_env, ':');
-	full = find_in_path(cmd, paths, perm_denied);
-	free_split(paths);
-	return (full);
+	out[j] = NULL;
+	return (out);
 }
